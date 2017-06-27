@@ -23,10 +23,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void baidu(View view) {
-        //如果当前运行的系统版本大于等于6.0
+        //如果当前运行的系统版本大于等于6.0，需要动态权限申请
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             int code = checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
-            Log.e("six", code + "");
+            Log.v("permission6.0", code + "");
             if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager
                     .PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission
@@ -51,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void test(View view) {
+        startActivity(new Intent(this, TestActivity.class));
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -70,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
         }
-
 
     }
 }

@@ -44,7 +44,8 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="TY7ER5fvgKC72EZ0Ln3FhZPLgZedAzbx" />
 
-        <activity android:name=".LocationActivity" ></activity >
+        <activity android:name=".LocationActivity" />
+        <activity android:name=".TestActivity" ></activity >
     </application >
 
 </manifest >

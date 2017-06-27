@@ -34,24 +34,22 @@ public class LocationActivity extends AppCompatActivity {
     public class MyLocationListener implements BDLocationListener {
         @Override
         public void onReceiveLocation(BDLocation location) {
-            BDLocation a = location;
-            int b = 3;
             if (location == null) {
-                Log.e("baidu", null);
+                Log.v("permission", null);
                 return;
             }
             if (location.getProvince() != null) {
-                Log.e("baidu", location.getProvince() + "\t" + location.getCity());
+                Log.v("permission", location.getProvince() + "\t" + location.getCity());
             } else {
                 //                ToastUtil.longToast("无法定位，请在设置项中开启定位权限");
             }
-            Log.e("type", location.getLocType() + "");
+            Log.v("permissionType", location.getLocType() + "");
 
         }
 
         @Override
         public void onConnectHotSpotMessage(String s, int i) {
-            Log.e("baidu", s);
+            Log.v("permission", s);
         }
     }
 

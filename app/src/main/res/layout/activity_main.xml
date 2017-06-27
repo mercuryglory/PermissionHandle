@@ -32,4 +32,15 @@
         android:onClick="readSD"
         android:padding="15dp"
         android:text="读取SD卡" />
+
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:onClick="test"
+        android:padding="15dp"
+        android:text="测试" />
 </RelativeLayout >
