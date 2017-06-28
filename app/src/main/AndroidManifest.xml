@@ -21,6 +21,8 @@
     <!-- SD卡读取权限，用户写入离线定位数据 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -45,7 +47,8 @@
             android:value="TY7ER5fvgKC72EZ0Ln3FhZPLgZedAzbx" />
 
         <activity android:name=".LocationActivity" />
-        <activity android:name=".TestActivity" ></activity >
+        <activity android:name=".TestActivity" />
+        <activity android:name=".WebViewActivity" ></activity >
     </application >
 
 </manifest >

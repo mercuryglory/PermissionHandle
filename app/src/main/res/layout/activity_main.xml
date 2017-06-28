@@ -22,6 +22,7 @@
         android:text="百度地图定位" />
 
     <TextView
+        android:id="@+id/tv_sd"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/tv_baidu"
         android:layout_width="match_parent"
@@ -32,6 +33,20 @@
         android:onClick="readSD"
         android:padding="15dp"
         android:text="读取SD卡" />
+
+    <TextView
+        android:id="@+id/tv_photo"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/tv_sd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:onClick="photo"
+        android:padding="15dp"
+        android:text="拍照" />
+
 
     <TextView
         android:layout_alignParentBottom="true"

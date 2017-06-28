@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int BAIDU_LOCATION = 100;
     public static final int READ_SD = 101;
+    public static final int CAMERA = 102;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +52,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void photo(View view) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+
+            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager
+                    .PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission
+                        .CAMERA}, CAMERA);
+            }
+        }
+    }
+
     public void test(View view) {
-        startActivity(new Intent(this, TestActivity.class));
+//        startActivity(new Intent(this, WebViewActivity.class));
     }
 
     @Override
