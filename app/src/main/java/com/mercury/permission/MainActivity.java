@@ -25,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void baidu(View view) {
         //如果当前运行的系统版本大于等于6.0，需要动态权限申请
+        if (checkCallingOrSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED) {
+            startActivity(new Intent(this, LocationActivity.class));
+            return;
+        }
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             int code = checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
             Log.v("permission6.0", code + "");
@@ -37,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+        Log.e("view", view.getId() + "");
 
 
     }
@@ -50,17 +57,29 @@ public class MainActivity extends AppCompatActivity {
                         .READ_EXTERNAL_STORAGE}, READ_SD);
             }
         }
+
+        Log.e("view", view.getId() + "");
     }
 
     public void photo(View view) {
+        if (checkCallingOrSelfPermission(Manifest.permission.CAMERA) ==
+                PackageManager.PERMISSION_GRANTED) {
+            startActivity(new Intent(this, CameraActivity.class));
+            return;
+        }
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
 
             if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager
                     .PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission
                         .CAMERA}, CAMERA);
+            } else {
+                startActivity(new Intent(this, CameraActivity.class));
             }
         }
+
+        Log.e("view", view.getId() + "");
     }
 
     public void test(View view) {
@@ -75,12 +94,19 @@ public class MainActivity extends AppCompatActivity {
             case BAIDU_LOCATION:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     startActivity(new Intent(this, LocationActivity.class));
-                Toast.makeText(this, "拒绝了", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(this, "拒绝了", Toast.LENGTH_SHORT).show();
                 break;
             case READ_SD:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "可以读取内存卡", Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case CAMERA:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    startActivity(new Intent(this, CameraActivity.class));
+                else
+                    Toast.makeText(this, "拒绝拍照", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;

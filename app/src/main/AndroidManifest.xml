@@ -20,7 +20,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- SD卡读取权限，用户写入离线定位数据 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -47,8 +46,8 @@
             android:value="TY7ER5fvgKC72EZ0Ln3FhZPLgZedAzbx" />
 
         <activity android:name=".LocationActivity" />
-        <activity android:name=".TestActivity" />
-        <activity android:name=".WebViewActivity" ></activity >
+        <activity android:name=".WebViewActivity" />
+        <activity android:name=".CameraActivity" ></activity >
     </application >
 
 </manifest >
