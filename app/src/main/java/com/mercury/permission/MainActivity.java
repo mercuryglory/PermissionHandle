@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -13,8 +15,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     public static final int BAIDU_LOCATION = 100;
-    public static final int READ_SD = 101;
-    public static final int CAMERA = 102;
+    public static final int READ_SD        = 101;
+    public static final int CAMERA         = 102;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,65 +27,69 @@ public class MainActivity extends AppCompatActivity {
 
     public void baidu(View view) {
         //如果当前运行的系统版本大于等于6.0，需要动态权限申请
-        if (checkCallingOrSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED) {
+        //        if (checkCallingOrSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
+        //                PackageManager.PERMISSION_GRANTED) {
+        //            startActivity(new Intent(this, LocationActivity.class));
+        //            return;
+        //        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission
+                    .ACCESS_COARSE_LOCATION}, BAIDU_LOCATION);
+            Log.e("baidu", "deny");
+        } else {
+            Log.e("baidu", "agree");
             startActivity(new Intent(this, LocationActivity.class));
-            return;
         }
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            int code = checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
-            Log.v("permission6.0", code + "");
-            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager
-                    .PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission
-                        .ACCESS_COARSE_LOCATION}, BAIDU_LOCATION);
-            } else {
-                startActivity(new Intent(this, LocationActivity.class));
-            }
-
-        }
+        //        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+        //            int code = checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
+        //            Log.v("permission6.0", code + "");
+        //            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) !=
+        // PackageManager
+        //                    .PERMISSION_GRANTED) {
+        //                requestPermissions(new String[]{Manifest.permission
+        //                        .ACCESS_COARSE_LOCATION}, BAIDU_LOCATION);
+        //            } else {
+        //                startActivity(new Intent(this, LocationActivity.class));
+        //            }
+        //
+        //        }
         Log.e("view", view.getId() + "");
 
 
     }
 
     public void readSD(View view) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager
-                    .PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission
-                        .READ_EXTERNAL_STORAGE}, READ_SD);
-            }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission
+                    .READ_EXTERNAL_STORAGE}, READ_SD);
         }
 
         Log.e("view", view.getId() + "");
     }
 
     public void photo(View view) {
-        if (checkCallingOrSelfPermission(Manifest.permission.CAMERA) ==
-                PackageManager.PERMISSION_GRANTED) {
+        //        if (checkCallingOrSelfPermission(Manifest.permission.CAMERA) ==
+        //                PackageManager.PERMISSION_GRANTED) {
+        //            startActivity(new Intent(this, CameraActivity.class));
+        //            return;
+        //        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager
+                .PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission
+                    .CAMERA}, CAMERA);
+        } else {
             startActivity(new Intent(this, CameraActivity.class));
-            return;
         }
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-
-            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager
-                    .PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission
-                        .CAMERA}, CAMERA);
-            } else {
-                startActivity(new Intent(this, CameraActivity.class));
-            }
-        }
-
         Log.e("view", view.getId() + "");
     }
 
     public void test(View view) {
-//        startActivity(new Intent(this, WebViewActivity.class));
+        //        startActivity(new Intent(this, WebViewActivity.class));
     }
 
     @Override
