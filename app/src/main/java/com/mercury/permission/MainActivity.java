@@ -1,15 +1,20 @@
 package com.mercury.permission;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -89,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void test(View view) {
+        alertWindow();
         //        startActivity(new Intent(this, WebViewActivity.class));
     }
 
@@ -112,12 +118,42 @@ public class MainActivity extends AppCompatActivity {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     startActivity(new Intent(this, CameraActivity.class));
                 else
-                    Toast.makeText(this, "拒绝拍照", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(this, "拒绝拍照", Toast.LENGTH_SHORT).show();
+
                 break;
             default:
                 break;
 
         }
+
+    }
+
+    private void alertWindow() {
+        Intent intent = new Intent();
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent
+                .FLAG_UPDATE_CURRENT);
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.notify);
+//        remoteViews.setImageViewResource(R.id.iv_image, R.mipmap.ic_launcher);
+//        remoteViews.setTextViewText(R.id.tv1, "123");
+//        remoteViews.setTextViewText(R.id.tv2, "456");
+
+        Notification notification = new NotificationCompat.Builder(MainActivity.this)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+//                .setPriority(Notification.PRIORITY_HIGH)
+//                .setVibrate(new long[0])
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setSmallIcon(R.mipmap.ic_launcher)
+//                .setContentTitle("标题")
+//                .setContentText("内容")
+                .setCustomContentView(remoteViews)
+                .setContentIntent(pendingIntent)
+                .setFullScreenIntent(pendingIntent, false)
+//                .addAction(R.mipmap.ic_launcher, "菜单1", pendingIntent)
+                .build();
+//        notification.contentView = remoteViews;
+        manager.notify(1, notification);
+
 
     }
 }
